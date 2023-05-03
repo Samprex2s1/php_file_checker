@@ -1,13 +1,14 @@
 import {createRouter, createWebHistory } from "vue-router";
-import Home from "../pages/Home.vue";
 
 const routes = [
     {
-        path: "/",
-        name: "home",
-        component: Home,
+        path: "/", component: () => import ("../pages/Home.vue"),
+        name: "home",  
     },
-
+    {
+        path: "/manytomany", component: () => import ("../pages/ManyToMany.vue"),
+        name: "ManyToMany",  
+    },
 ];
 
 const router = createRouter({
