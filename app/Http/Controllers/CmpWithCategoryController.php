@@ -6,31 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Text;
 
-class CmpWithCategory extends BaseController
+class CmpWithCategoryController extends BaseController
 {
     public function __invoke(Request $request)
     {
-        $files = array();
-        foreach($_FILES['files'] as $k => $l) {
-            foreach($l as $i => $v) {
-                $files[$i][$k] = $v;
-            }
-        }		
-        $_FILES['files'] = $files;
+        $category = $request['pickedCategory'];
 
         $fileA_path = $request->file('file')->path();
         $textA = $this->service->getFileText($fileA_path);
-        $textB = '';
 
-        for ($i = 0; $i < count($_FILES['files']); $i++) {
-            $fileB_path = $_FILES['files'][$i]['tmp_name'];
-            $textB = $this->service->getFileText($fileB_path);
-            Text::firstOrCreate([
-                'text' => $textB,
-            ]);
-        }
+        $texts = Text::where('category', $category)->get();
 
-        $texts = DB::table('texts')->pluck('Text');
         $textArr[] = array();
 
         foreach ($texts as $text) {
