@@ -3,7 +3,16 @@
     <input type="file" @change="uploadFile" ref="file" name="file">
 
     <input type="file" id="files" ref="files" multiple @change="handleFilesUpload">
-
+    <br>
+    <label for="withAllDB">Сравнить со всей БД</label>
+    <input type="checkbox" id="subscribeNews" name="withAllDB"/>
+    <br>
+    <label for="withCategory">Сравнить с категорией</label>
+    <input type="checkbox" id="subscribeNews" name="withCategory"/>
+    <br>
+    <label for="saveCategory">Сохранить файлы как категорию</label>
+    <input type="checkbox" id="subscribeNews" name="saveCategory"/>
+    <br>
     <button @click="submitFile">Сравить!</button>
 </template>
 

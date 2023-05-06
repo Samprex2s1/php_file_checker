@@ -15,5 +15,16 @@ export default {
 </script>
 
 <style>
-
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    body {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+    }
+    a{
+        text-decoration: none;
+        color: #1D1D1D;
+    }
 </style>
