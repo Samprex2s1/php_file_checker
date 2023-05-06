@@ -5,7 +5,7 @@
     <input type="file" id="files" ref="files" multiple @change="handleFilesUpload">
     <br>
     <label for="withAllDB">Сравнить со всей БД</label>
-    <input type="checkbox" id="subscribeNews" name="withAllDB"/>
+    <input type="checkbox" id="subscribeNews" v-model="compWithAllDB"/>
     <br>
     <label for="withCategory">Сравнить с категорией</label>
     <input type="checkbox" id="subscribeNews" name="withCategory"/>
@@ -19,6 +19,12 @@
 <script>
 export default {
     name: 'Home',
+
+    data() {
+      return {
+        compWithAllDB: false,
+      }
+    },
 
     methods: {
       uploadFile() {
@@ -38,10 +44,17 @@ export default {
         }
 
         const headers = { 'Content-Type': 'multipart/form-data' };
-        axios.post('/api/uploadfile', formData, { headers }).then((res) => {
-          console.log(res.data)
-        });
 
+        if(this.compWithAllDB){
+          axios.post('/api/uploadfile/withdb', formData, { headers }).then((res) => {
+            console.log(res.data)
+          });
+        } else {
+          axios.post('/api/uploadfile', formData, { headers }).then((res) => {
+            console.log(res.data)
+          });
+        }
+        
       }
     }
 }
