@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GetFileController;
 use App\Http\Controllers\ManyToManyController;
 use App\Http\Controllers\CmpWithDBController;
+use App\Http\Controllers\SaveCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/uploadfile', GetFileController::class);
 Route::post('/uploadfile/withdb', CmpWithDBController::class);
+Route::post('/uploadfile/savecategory', SaveCategoryController::class);
 Route::post('/uploadfile/manytomany', ManyToManyController::class);
