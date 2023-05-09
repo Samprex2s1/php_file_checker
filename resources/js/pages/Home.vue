@@ -13,20 +13,21 @@
           <input id="upload-file" type="file" @change="uploadFile" ref="files" name="file">
         </div>
 
-        <div class="upload-checkbox">
+        <div class="upload-checkbox" v-if="!compWithCategory">
           <input type="checkbox" v-model="compWithAllDB"/>
           <label class="upload-checkbox__name" for="withAllDB">Сравнить со всей БД</label>
         </div>
         
-        <div class="upload-checkbox">
+        <div class="upload-checkbox" v-if="!compWithAllDB">
           <input type="checkbox" v-model="compWithCategory"/>
           <label class="upload-checkbox__name" for="withCategory">Сравнить с категорией</label>
-          <select v-if="compWithCategory"  v-model="pickedCategory">
+          <select class="upload-checkbox_category" v-if="compWithCategory"  v-model="pickedCategory">
+            <option value="" selected>--Выберите категорию--</option>
             <option v-for="category in categories" :key="categories.Category" :value="category.Category">{{ category.Category }}</option>
           </select>
         </div>
         
-        <div class="upload-checkbox">
+        <div class="upload-checkbox" v-if="!compWithCategory">
           <input type="checkbox" name="saveCategory" v-model="saveCategory"/>
           <label class="upload-checkbox__name" for="saveCategory">Сохранить файлы как категорию</label>
           <input v-if="saveCategory" v-model="categoryName" type="text" placeholder="Название категории"/>
@@ -104,11 +105,13 @@ export default {
         if(this.compWithAllDB){
           axios.post('/api/uploadfile/withdb', formData, { headers }).then((res) => {
             this.tableResults = res.data
+            console.log(res.data)
           });
         } else if (this.compWithCategory){
           formData.append("pickedCategory", this.pickedCategory);
           axios.post('/api/uploadfile/withcategory', formData, { headers }).then((res) => {
             this.tableResults = res.data
+            console.log(res.data)
           });
         } else {
           axios.post('/api/uploadfile', formData, { headers }).then((res) => {
@@ -169,6 +172,9 @@ export default {
     font-weight: 500;
     color: #FFFFFF;
   }
+  .upload-btn:hover {
+    background: #0483dd;
+  }
   .upload-btn__fileName {
     margin-left: 12px;
   }
@@ -188,7 +194,19 @@ export default {
     color: #FFFFFF;
     border: none;
   }
+  .cmp-btn:hover {
+    background: #0483dd;
+  }
   .upload-checkbox__name {
     margin-left: 4px;
+  }
+  .upload-checkbox_category {
+    display: block;
+    min-width: 100px;
+    min-height: 24px;
+    margin-top: 6px;
+    font-size: 16px;
+    padding: 8px;
+    border: #0366AD solid 2px;
   }
 </style>

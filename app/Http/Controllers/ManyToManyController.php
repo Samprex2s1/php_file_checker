@@ -19,18 +19,19 @@ class ManyToManyController extends BaseController
 
         for ($i = 0; $i < count($_FILES['files']); $i++) {
             $fileB_path = $_FILES['files'][$i]['tmp_name'];
-
+            $fileB_name = $_FILES['files'][$i]['name'];
             $textB = $this->service->getFileText($fileB_path);
 
+            $nameArr[$i] =  $fileB_name;
             for ($j = 0; $j < count($_FILES['files']); $j++) {
                 $fileTmp_path = $_FILES['files'][$j]['tmp_name'];
                 $textTmp = $this->service->getFileText($fileTmp_path);
 
                 similar_text($textTmp, $textB, $perc);
-                $textArr[$i][$j] =  $perc;
+                $textArr[$i][$j] =  round($perc,1);
             }
         }
 
-        return $textArr;
+        return array($nameArr, $textArr);
     }
 }

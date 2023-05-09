@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->id();
+            $table->string('FileName');
             $table->text('Text');
             $table->string('Category')->nullable();
             $table->timestamps();

@@ -30,12 +30,13 @@ class GetFileController extends BaseController
             $fileB_name = $_FILES['files'][$i]['name'];
             $textB = $this->service->getFileText($fileB_path);
             Text::firstOrCreate([
-                'text' => $textB,
+                'FileName' => $fileB_name,
+                'Text' => $textB,
             ]);
             similar_text($textA, $textB, $perc);
             $textArr[$i] = [
                 'name'=> $fileB_name, 
-                'perc' => $perc
+                'perc' => round($perc, 1)
             ];
         }
 

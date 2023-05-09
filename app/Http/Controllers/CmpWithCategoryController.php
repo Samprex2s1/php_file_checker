@@ -17,11 +17,14 @@ class CmpWithCategoryController extends BaseController
 
         $texts = Text::where('category', $category)->get();
 
-        $textArr[] = array();
+        $textArr = array();
 
         foreach ($texts as $text) {
-            similar_text($textA, $text, $perc);
-            array_push($textArr, $perc);
+            similar_text($textA, $text['Text'], $perc);
+            array_push($textArr, [
+                'name'=> $text['FileName'], 
+                'perc' => round($perc, 1)
+            ]);
         }
         
         return $textArr;

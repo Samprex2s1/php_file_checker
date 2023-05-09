@@ -78,7 +78,7 @@
         let fileSrc = URL.createObjectURL(file);
         setTimeout(() => {
             URL.revokeObjectURL(fileSrc);
-        }, 1000);
+        }, 2000);
         return fileSrc;
       },
     },
@@ -95,7 +95,7 @@
 
 .dropzone-container {
     padding: 4rem;
-    background: #f7fafc;
+    background: #ebf7ff;
     border: 1px solid #e2e8f0;
 }
 
@@ -115,11 +115,14 @@
 
 .preview-container {
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 2rem;
 }
 
 .preview-card {
     display: flex;
+    flex-wrap: wrap;
     border: 1px solid #a2a2a2;
     padding: 5px;
     margin-left: 5px;

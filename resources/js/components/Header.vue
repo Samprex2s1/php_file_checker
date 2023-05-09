@@ -20,8 +20,10 @@ export default {
 
 .header__btn {
     padding: 25px 42px;
-    border-width: 0px 1px;
-    border-style: solid;
-    border-color: #737373;
+    font-weight: 400;
+}
+
+.header__btn:hover {
+    font-weight: 500;
 }
 </style>
