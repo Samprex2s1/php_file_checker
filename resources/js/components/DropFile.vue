@@ -23,7 +23,7 @@
         <div class="preview-container mt-4" v-if="files.length">
         <div v-for="file in files" :key="file.name" class="preview-card">
           <div>
-            <img class="preview-img" :src="generateURL(file)" />
+            <img class="preview-img" src="/imgs/doc.png" />
             <p>
             {{ file.name }}
             </p>

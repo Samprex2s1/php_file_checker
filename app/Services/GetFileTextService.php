@@ -28,7 +28,7 @@ class GetFileTextService
 
         zip_close($zip);
 
-        $content = str_replace('</w:r></w:p></w:tc><w:tc>', " ", $content);
+        $content = str_replace('</w:r></w:p></w:tc><w:tc></w:t><w:t>', " ", $content);
         $content = str_replace('</w:r></w:p>', " ", $content);
         $striped_content = strip_tags($content);
 

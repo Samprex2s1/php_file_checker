@@ -30,14 +30,14 @@
         <div class="upload-checkbox" v-if="!compWithCategory">
           <input type="checkbox" name="saveCategory" v-model="saveCategory"/>
           <label class="upload-checkbox__name" for="saveCategory">Сохранить файлы как категорию</label>
-          <input v-if="saveCategory" v-model="categoryName" type="text" placeholder="Название категории"/>
+          <input class="upload-checkbox_category" v-if="saveCategory" v-model="categoryName" type="text" placeholder="Название категории"/>
         </div>
         
         <button class="cmp-btn" @click="submitFile">Сравнить</button>
         
       </div>
       <div class="content__left">
-        <DropFile v-if="!compWithCategory" :handleFilesUpload='handleFilesUpload'/>
+        <DropFile v-if="!compWithCategory && !compWithAllDB"  :handleFilesUpload='handleFilesUpload'/>
       </div>
     </div>
     <Table :tableResults="tableResults" />
@@ -66,6 +66,7 @@ export default {
     mounted() {
       this.getCategories()
     },
+   
 
     methods: {
       uploadFile() {
@@ -99,6 +100,7 @@ export default {
           formData.append("categoryName", this.categoryName);
           axios.post('/api/uploadfile/savecategory', formData, { headers }).then((res) => {
             console.log(res.data)
+            this.getCategories()
           });
         }
 
