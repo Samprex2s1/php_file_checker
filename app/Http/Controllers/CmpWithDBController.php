@@ -12,27 +12,18 @@ class CmpWithDBController extends BaseController
 {
     public function __invoke(Request $request)
     {
-        $files = array();
-        foreach($_FILES['files'] as $k => $l) {
-            foreach($l as $i => $v) {
-                $files[$i][$k] = $v;
-            }
-        }		
-        $_FILES['files'] = $files;
+       
 
         $fileA_path = $request->file('file')->path();
+        $fileA_name =  $request->file('file')->getClientOriginalName();
         $textA = $this->service->getFileText($fileA_path);
-        $textB = '';
+
+        Text::firstOrCreate([
+            'FileName' => $fileA_name,
+            'Text' => $textA,
+        ]);
+
         
-        for ($i = 0; $i < count($_FILES['files']); $i++) {
-            $fileB_path = $_FILES['files'][$i]['tmp_name'];
-            $fileB_name = $_FILES['files'][$i]['name'];
-            $textB = $this->service->getFileText($fileB_path);
-            Text::firstOrCreate([
-                'FileName' => $fileB_name,
-                'Text' => $textB,
-            ]);
-        }
 
         $texts = DB::table('texts')->pluck('Text', 'FileName')->toArray();
         $textArr = array();
@@ -44,7 +35,6 @@ class CmpWithDBController extends BaseController
                 'perc' => round($perc, 1)
             ]);
         }
-        
         return $textArr;
     }
 }
